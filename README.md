@@ -163,7 +163,8 @@ $eventManager = new EventManager();
 $eventManager->addEventListener(array(Events::onFlush), new FlushListener($handler, $formatter));
 ```
 
-You can also use a custom formatter for a particular entity field. This is also useful to hide sensible or encrypted information (e.g. passwords) 
+You can also use a custom formatter for a particular entity field. This is also useful to hide 
+sensible or encrypted information (e.g. passwords) 
 ```php
 /**
  * @Column(type="string", length=64)
@@ -172,7 +173,10 @@ You can also use a custom formatter for a particular entity field. This is also 
 protected $password;
 ```
 
-The valueFormatter property expects a full qualified classname. As you can see in this example, this package has also a ConcealFormatter, which only shows Asteriks (*) on each changed character. If no valueFormatter is definied for this field, the default formatter is used (the section above).
+The valueFormatter property expects a full qualified classname. As you can see in this 
+example, this package has also a `ConcealFormatter`, which only shows Asteriks (*) on each 
+changed character. If no valueFormatter is definied for this field, 
+the default formatter is used (the section above).
 
 <a name="labels"></a>
 ### Setting labels
