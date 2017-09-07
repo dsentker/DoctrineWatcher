@@ -74,6 +74,31 @@ To enable support for the annotations, you must register them after the entity m
 ```php
 \DSentker\Watcher\Watcher::registerAnnotations();
 ```
+### Database setup
+#### Database structure
+If you are using the DatabaseHandler, a new table in your database is needed. Create the table using the entity_log.db.sql file in the `resources/` folder. 
+
+#### Entity setup
+Use DSentker\Watcher\Entity\EntityLog as a template, extend it or copy it to your entity folder.
+
+#### Repository and basic usage
+This package has an `EntityLogRepository` to fetch changes related to an entity:
+```php
+/** @var EntityLogRepository $logRepo */
+$logRepo = new $em->getRepository(EntityLog::class);
+
+/** @var EntityLog[] $changes */
+$changes = $logRepo->getLogsFromEntity($user);
+
+// Example: get latest change:
+$lastChange = $changes[0];
+echo vsprintf("Last updated at (%s): Changed %s to %s", [
+    $lastChange->getChangedAt()->format('Y-m-d'),
+    $lastChange->getOldValue(),
+    $lastChange->getNewValue(),
+]);
+```
+  
 
 ### Creating custom handler
 You can also write your own handlers. The handler is executed when a field change was detected and persisted. This only has to implement the interface namespace `DSentker\Watcher\UpdateHandler`:

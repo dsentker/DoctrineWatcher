@@ -79,6 +79,14 @@ class EntityLog
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getChangedAt()
+    {
+        return $this->changedAt;
+    }
+
+    /**
      * @return int
      */
     public function getId()
