@@ -13,6 +13,18 @@ You can use this library to track changes to Entites. You can use annotations to
 protected $emailAddress;
 ```
 
+## TOC
+0. [Example implementation](#example)
+1. [Setup (Quickstart)](#quickstart)
+2. [Database settings](#database)
+3. [Update Handler](#handler)
+4. [Value formatter](#formatter)
+5. [Labels](#labels)
+6. [Full example](#fullexample)
+7. [Limitations](#limitations)
+8. [License, copyright and other stuff](#stuff)
+
+<a name="example"></a>
 ## Example
 Given the fictious entity _User_, you want to track whether a change on the email address has occured. To do so, add the annotation `@WatchedField` to the field `$emailAddress`. You also add the Interface `WatchedEntity` to the entity (this only needs the `getId()` method to help the library track changes).
 
@@ -65,17 +77,6 @@ the flush (`$em->flush()` process.
 
 You can define a custom handler, if you want something different on a field change. This package provides the 
 _DatabaseHandler_ (storing the changes in a table) and a _LogHandler_ (according to PSR-3).
-
-
-## TOC
-1. [Setup (Quickstart)](#quickstart)
-2. [Database settings](#database)
-3. [Update Handler](#handler)
-4. [Value formatter](#formatter)
-5. [Labels](#labels)
-6. [Full example](#fullexample)
-7. [Limitations](#limitations)
-8. [License, copyright and other stuff](#stuff)
 
 <a name="quickstart"></a>
 ## Setup (Quickstart)
