@@ -64,7 +64,8 @@ class EntityLog
 
     /**
      * @param WatchedEntity $entity
-     * @param ChangedField $changedField
+     * @param ChangedField  $changedField
+     *
      * @return static
      */
     public static function createFormChangedField(WatchedEntity $entity, ChangedField $changedField)
@@ -104,6 +105,7 @@ class EntityLog
 
     /**
      * @param mixed $field
+     *
      * @return EntityLog
      */
     public function setField($field)
@@ -122,6 +124,7 @@ class EntityLog
 
     /**
      * @param mixed $label
+     *
      * @return EntityLog
      */
     public function setLabel($label)
@@ -140,6 +143,7 @@ class EntityLog
 
     /**
      * @param mixed $oldValue
+     *
      * @return EntityLog
      */
     public function setOldValue($oldValue)
@@ -158,6 +162,7 @@ class EntityLog
 
     /**
      * @param mixed $newValue
+     *
      * @return EntityLog
      */
     public function setNewValue($newValue)

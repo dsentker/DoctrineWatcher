@@ -10,7 +10,6 @@ use DSentker\Watcher\EventListener\FlushListener;
 class Watcher
 {
 
-
     /**
      * @param UpdateHandler $handler
      *

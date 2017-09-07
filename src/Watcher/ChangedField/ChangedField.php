@@ -1,4 +1,5 @@
 <?php
+
 namespace DSentker\Watcher\ChangedField;
 
 class ChangedField
@@ -18,10 +19,11 @@ class ChangedField
 
     /**
      * ChangedField constructor.
+     *
      * @param string $fieldName
      * @param string $fieldLabel
-     * @param mixed $oldValue
-     * @param mixed $newValue
+     * @param mixed  $oldValue
+     * @param mixed  $newValue
      */
     public function __construct($oldValue, $newValue, $fieldName, $fieldLabel = null)
     {

@@ -123,7 +123,6 @@ class DefaultFormatter implements ValueFormatter
             return $this->formatNull();
         }
 
-
         if (is_string($value) || is_int($value) || is_float($value)) {
             return $this->formatString($value);
         }
@@ -138,11 +137,9 @@ class DefaultFormatter implements ValueFormatter
                 return $this->formatObject($value);
             }
 
-
         }
 
         return $this->formatOther($value);
     }
-
 
 }

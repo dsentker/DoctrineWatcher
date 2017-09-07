@@ -14,15 +14,15 @@ protected $emailAddress;
 ```
 
 ## TOC
-0. [Example implementation](#example)
-1. [Setup (Quickstart)](#quickstart)
-2. [Database settings](#database)
-3. [Update Handler](#handler)
-4. [Value formatter](#formatter)
-5. [Labels](#labels)
-6. [Full example](#fullexample)
-7. [Limitations](#limitations)
-8. [License, copyright and other stuff](#stuff)
+1. [Example implementation](#example)
+2. [Setup (Quickstart)](#quickstart)
+3. [Database settings](#database)
+4. [Update Handler](#handler)
+5. [Value formatter](#formatter)
+6. [Labels](#labels)
+7. [Full example](#fullexample)
+8. [Limitations](#limitations)
+9. [License, copyright and other stuff](#stuff)
 
 <a name="example"></a>
 ## Example

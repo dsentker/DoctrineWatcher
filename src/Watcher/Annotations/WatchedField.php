@@ -29,7 +29,7 @@ final class WatchedField implements Annotation
     public function getFormatterClassInstance()
     {
 
-        if(!$this->hasValueFormatter()) {
+        if (!$this->hasValueFormatter()) {
             return null;
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace DSentker\Watcher\UpdateHandler;
 
 use Doctrine\ORM\EntityManager;
@@ -11,7 +12,7 @@ use DSentker\Watcher\ValueFormatter;
 class DatabaseHandler implements UpdateHandlerEntityManagerAware
 {
 
-    /** @var EntityManager  */
+    /** @var EntityManager */
     private $em;
 
     /**

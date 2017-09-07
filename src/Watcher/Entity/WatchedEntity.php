@@ -4,6 +4,7 @@ namespace DSentker\Watcher\Entity;
 
 interface WatchedEntity
 {
+
     /**
      * @return int
      */
