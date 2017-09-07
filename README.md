@@ -66,6 +66,18 @@ the flush (`$em->flush()` process.
 You can define a custom handler, if you want something different on a field change. This package provides the 
 _DatabaseHandler_ (storing the changes in a table) and a _LogHandler_ (according to PSR-3).
 
+
+## TOC
+1. [Setup (Quickstart)](#quickstart)
+2. [Database settings](#database)
+3. [Update Handler](#handler)
+4. [Value formatter](#formatter)
+5. [Labels](#labels)
+6. [Full example](#fullexample)
+7. [Limitations](#limitations)
+8. [License, copyright and other stuff](#stuff)
+
+<a name="quickstart"></a>
 ## Setup (Quickstart)
 To enable tracking of changes, you must pass the `\DSentker\Watcher\EventListener\FlushListener` to the EventManager when creating the EntityManager:
 ```php
@@ -83,6 +95,7 @@ To enable support for the annotations, you must register them after the entity m
 ```php
 \DSentker\Watcher\Watcher::registerAnnotations();
 ```
+<a name="database"></a>
 ### Database setup
 #### Database structure
 If you are using the DatabaseHandler, a new table in your database is needed. Create the table using the entity_log.db.sql file in the `resources/` folder. 
@@ -94,7 +107,7 @@ Use DSentker\Watcher\Entity\EntityLog as a template, extend it or copy it to you
 This package has an `EntityLogRepository` to fetch changes related to an entity:
 ```php
 /** @var EntityLogRepository $logRepo */
-$logRepo = new $em->getRepository(EntityLog::class);
+$logRepo = $em->getRepository(EntityLog::class);
 
 /** @var EntityLog[] $changes */
 $changes = $logRepo->getLogsFromEntity($user);
@@ -108,7 +121,7 @@ echo vsprintf("Last updated at (%s): Changed %s to %s", [
 ]);
 ```
   
-
+<a name="handler"></a>
 ### Creating custom handler
 You can also write your own handlers. The handler is executed when a field change was detected and persisted. This only has to implement the interface namespace `DSentker\Watcher\UpdateHandler`:
 ```php
@@ -121,6 +134,7 @@ interface UpdateHandler
 ```
 While `$changedField` contains all information about the changed field, The `$formatter` represents a converter class that transforms a non-scalar value to a string. If the value of a modified field is non-primitive (for example, a `DateTime` object, it must be converted to a string before persistence. A boolean value should also be output with "Yes" or "No".
 
+<a name="formatter"></a>
 ### ValueFormatter
 The `ValueFormatter` does the conversion of a field into a string. Practically, a default formatter is provided, which converts all typical data types to a string representation.
 
@@ -159,7 +173,7 @@ protected $password;
 
 The valueFormatter property expects a full qualified classname. As you can see in this example, this package has also a ConcealFormatter, which only shows Asteriks (*) on each changed character. If no valueFormatter is definied for this field, the default formatter is used (the section above).
 
-
+<a name="labels"></a>
 ### Setting labels
 The names of the attributes in the entities are not always user-friendly, especially when the changes of respective field has to be displayed to the user. Therefore, you can optionally set a label to each field:
 ```php
@@ -170,11 +184,46 @@ The names of the attributes in the entities are not always user-friendly, especi
 protected $updatedAt;
 ```
 
+<a name="fullexample"></a>
+## Full Example
+```php
+/**
+ * @var $dbParams array
+ * @var $config Configuration
+ */
+$em = EntityManager::create($dbParams, $config, Watcher::createEventManager(new DatabaseHandler()));
+Watcher::registerAnnotations();
+
+
+/**
+ * @var $user User
+ */
+$user = $em->getRepository(User::class)->find(1);
+$user->setUsername("A new username");
+$em->persist($user);
+$em->flush();
+
+/** @var EntityLogRepository $logRepo */
+$logRepo = $em->getRepository(EntityLog::class);
+
+/** @var EntityLog[] $changes */
+$changes = $logRepo->getLogsFromEntity($user);
+
+$lastChange = $changes[0];
+echo vsprintf("Last updated at (%s): Changed %s from '%s' to '%s'", [
+    $lastChange->getChangedAt()->format('Y-m-d'),
+    $lastChange->getOldValue(),
+    $lastChange->getNewValue(),
+]); // Last updated at 2017-09-07: Changed User name from 'John Doe' to 'A new username' 
+```
+
+<a name="limitations"></a>
 ## Known Limitations
 * This package is able to track changes on single fields and associations (collections), but depends 
 on the concept of Doctrine, [which is limited to track changes on fields on the **owning side**](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/unitofwork-associations.html). That means, that inverse side associations (`@OneToMany`) are NOT supported. `@ManyToMany` and `@ManyToOne` associations _are_ supported.
 * Also consider the overhead. The change of each individual(!) field results in a single database query (if you use the `DatabaseHandler`). The change of 10 fully-watched entities with 10 fields generates an additional 100 database queries.
 
+<a name="stuff"></a>
 ## Testing
 Sorry - not yet.
  
