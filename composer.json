@@ -1,0 +1,6 @@
+{
+    "require": {
+        "doctrine/orm": "^2.5",
+        "psr/log": "^1.0"
+    }
+}
