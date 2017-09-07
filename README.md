@@ -4,6 +4,15 @@
 
 You can use this library to track changes to Entites. You can use annotations to define the fields that you want to monitor. They determine where the changes are to be saved.
 
+```php
+// User Entity class
+/**
+ * @Column(type="string")
+ * @WatchedField // <-- Watcher now tracks changes related to this field
+ */
+protected $emailAddress;
+```
+
 ## Example
 Given the fictious entity _User_, you want to track whether a change on the email address has occured. To do so, add the annotation `@WatchedField` to the field `$emailAddress`. You also add the Interface `WatchedEntity` to the entity (this only needs the `getId()` method to help the library track changes).
 
