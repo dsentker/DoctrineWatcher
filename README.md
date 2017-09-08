@@ -200,9 +200,7 @@ $em = EntityManager::create($dbParams, $config, Watcher::createEventManager(new 
 Watcher::registerAnnotations();
 
 
-/**
- * @var $user User
- */
+/** @var $user User */
 $user = $em->getRepository(User::class)->find(1);
 $user->setUsername("A new username");
 $em->persist($user);
@@ -217,6 +215,7 @@ $changes = $logRepo->getLogsFromEntity($user);
 $lastChange = $changes[0];
 echo vsprintf("Last updated at (%s): Changed %s from '%s' to '%s'", [
     $lastChange->getChangedAt()->format('Y-m-d'),
+    $lastChange->getFieldLabel(),
     $lastChange->getOldValue(),
     $lastChange->getNewValue(),
 ]); // Last updated at 2017-09-07: Changed User name from 'John Doe' to 'A new username' 
