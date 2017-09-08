@@ -1,6 +1,27 @@
 {
-    "require": {
-        "doctrine/orm": "^2.5",
-        "psr/log": "^1.0"
+  "name": "dsentker/watcher",
+  "description": "Allows to track changes on doctrine entities with an easy-to-use and highly customizable API.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "DSentker\\Watcher\\": "vendor/watcher/src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Daniel Sentker",
+      "email": "tracid2008@gmail.com",
+      "homepage": "https://github.com/dsentker",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^5.5 || ^7.0",
+    "doctrine/orm": "^2.5",
+    "psr/log": "^1.0"
+  },
+  "suggest": {
+    "monolog/monolog": "Allows logging of changed entities"
+  }
 }
