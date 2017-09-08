@@ -35,9 +35,11 @@ class DatabaseHandler implements UpdateHandlerEntityManagerAware
         $log->setLabel($changedField->getFieldLabel());
 
         $this->em->persist($log);
-        $metaData = $this->em->getClassMetadata(get_class($entity));
         $uow->computeChangeSets();
-        $uow->recomputeSingleEntityChangeSet($metaData, $entity);
+
+        // The two lines below were suggested in documentation, but are not needed IMHO.
+        #$metaData = $this->em->getClassMetadata(get_class($entity));
+        #$uow->recomputeSingleEntityChangeSet($metaData, $entity);
 
     }
 
