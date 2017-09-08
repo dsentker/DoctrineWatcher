@@ -57,8 +57,8 @@ class FlushListener
 
     /**
      * @param Reader $reader
-     * @param        $entity
-     * @param        $field
+     * @param mixed  $entity
+     * @param string $field
      *
      * @return WatchedField|null
      */
