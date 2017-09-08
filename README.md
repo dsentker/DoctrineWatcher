@@ -80,6 +80,10 @@ _DatabaseHandler_ (storing the changes in a table) and a _LogHandler_ (according
 
 <a name="quickstart"></a>
 ## Setup (Quickstart)
+
+Download this package and add it to your autoloader (PSR-4 autoloading). I recommend to use composer instead:
+`composer require dsentker/watcher`
+
 To enable tracking of changes, you must pass the `\DSentker\Watcher\EventListener\FlushListener` to the EventManager when creating the EntityManager:
 ```php
 $eventManager = new EventManager();
