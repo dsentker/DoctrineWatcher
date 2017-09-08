@@ -3,55 +3,56 @@
 namespace Watcher\Entity;
 
 use Watcher\ChangedField\ChangedField;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class EntityLog
  *
- * @Entity(repositoryClass="Watcher\Repository\EntityLogRepository")
- * @Table(name="entity_logs")
+ * @ORM\Entity(repositoryClass="Watcher\Repository\EntityLogRepository")
+ * @ORM\Table(name="entity_logs")
  */
 class EntityLog
 {
 
     /**
-     * @Id
-     * @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @Column(type="datetime", name="changed_at")
+     * @ORM\Column(type="datetime", name="changed_at")
      */
     protected $changedAt;
 
     /**
-     * @Column(type="string", name="entity_class")
+     * @ORM\Column(type="string", name="entity_class")
      */
     protected $entityClass;
 
     /**
-     * @Column(type="integer", name="entity_id")
+     * @ORM\Column(type="integer", name="entity_id")
      */
     protected $entityId;
 
     /**
-     * @Column(type="string", name="field")
+     * @ORM\Column(type="string", name="field")
      */
     protected $field;
 
     /**
-     * @Column(type="string", name="label")
+     * @ORM\Column(type="string", name="label")
      */
     protected $label;
 
     /**
-     * @Column(type="string", name="old_value")
+     * @ORM\Column(type="string", name="old_value")
      */
     protected $oldValue;
 
     /**
-     * @Column(type="string", name="new_value")
+     * @ORM\Column(type="string", name="new_value")
      */
     protected $newValue;
 
