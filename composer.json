@@ -5,7 +5,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "DSentker\\Watcher\\": "vendor/watcher/src/"
+      "DSentker\\Watcher\\": "vendor/dsentker/watcher/src/"
     }
   },
   "authors": [
