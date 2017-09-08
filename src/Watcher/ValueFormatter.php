@@ -1,5 +1,5 @@
 <?php
-namespace DSentker\Watcher;
+namespace Watcher;
 
 interface ValueFormatter
 {

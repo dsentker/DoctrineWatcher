@@ -88,7 +88,7 @@ I recommend to use composer:
 <sub>(If you do not want to use composer, download this package and add it to your PSR-4 autoloader.)</sub>
 <hr />
 
-To enable tracking of changes, you must pass the `\DSentker\Watcher\EventListener\FlushListener` to the EventManager when creating the EntityManager:
+To enable tracking of changes, you must pass the `\Watcher\EventListener\FlushListener` to the EventManager when creating the EntityManager:
 ```php
 $eventManager = new EventManager();
 $eventManager->addEventListener(array(Events::onFlush), new FlushListener($handler));
@@ -98,11 +98,11 @@ $em = EntityManager::create($dbParams, $config, $eventManager);
 $em = EntityManager::create($dbParams, $config, Watcher::createEventManager($handler));
 ```
 
-The `$handler` represents the instance from an object that is executed when a change is detected. Use the `\DSentker\Watcher\UpdateHandler\DatabaseHandler` to save the changes to Doctrine in a separate table. Alternatively, you can also use the LogHandler (this expects a logger according to PSR in the constructor).
+The `$handler` represents the instance from an object that is executed when a change is detected. Use the `\Watcher\UpdateHandler\DatabaseHandler` to save the changes to Doctrine in a separate table. Alternatively, you can also use the LogHandler (this expects a logger according to PSR in the constructor).
 
 To enable support for the annotations, you must register them after the entity manger is created. The easiest way to do this is to use the `::registerAnnotations()` method:
 ```php
-\DSentker\Watcher\Watcher::registerAnnotations();
+Watcher::registerAnnotations();
 ```
 <a name="database"></a>
 ### Database setup
@@ -110,7 +110,7 @@ To enable support for the annotations, you must register them after the entity m
 If you are using the DatabaseHandler, a new table in your database is needed. Create the table using the entity_log.db.sql file in the `resources/` folder. 
 
 #### Entity setup
-Use DSentker\Watcher\Entity\EntityLog as a template, extend it or copy it to your entity folder.
+Use Watcher\Entity\EntityLog as a template, extend it or copy it to your entity folder.
 
 #### Repository and basic usage
 This package has an `EntityLogRepository` to fetch changes related to an entity:
@@ -132,7 +132,7 @@ echo vsprintf("Last updated at (%s): Changed %s to %s", [
   
 <a name="handler"></a>
 ### Creating custom handler
-You can also write your own handlers. The handler is executed when a field change was detected and persisted. This only has to implement the interface namespace `DSentker\Watcher\UpdateHandler`:
+You can also write your own handlers. The handler is executed when a field change was detected and persisted. This only has to implement the interface namespace `Watcher\UpdateHandler`:
 ```php
 interface UpdateHandler
 {
@@ -147,7 +147,7 @@ While `$changedField` contains all information about the changed field, The `$fo
 ### ValueFormatter
 The `ValueFormatter` does the conversion of a field into a string. Practically, a default formatter is provided, which converts all typical data types to a string representation.
 
-You can also create your own ValueFormatter, which must follow the Interface `DSentker\Watcher\ValueFormatter`:
+You can also create your own ValueFormatter, which must follow the Interface `Watcher\ValueFormatter`:
 ```php
 interface ValueFormatter
 {
@@ -176,7 +176,7 @@ sensible or encrypted information (e.g. passwords)
 ```php
 /**
  * @Column(type="string", length=64)
- * @WatchedField(valueFormatter="\DSentker\Watcher\ValueFormatter\ConcealFormatter")
+ * @WatchedField(valueFormatter="\Watcher\ValueFormatter\ConcealFormatter")
  */
 protected $password;
 ```

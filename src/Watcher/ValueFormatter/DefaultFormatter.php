@@ -1,10 +1,10 @@
 <?php
 
-namespace DSentker\Watcher\ValueFormatter;
+namespace Watcher\ValueFormatter;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use DSentker\Watcher\ValueFormatter;
+use Watcher\ValueFormatter;
 
 class DefaultFormatter implements ValueFormatter
 {

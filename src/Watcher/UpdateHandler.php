@@ -1,9 +1,9 @@
 <?php
 
-namespace DSentker\Watcher;
+namespace Watcher;
 
-use DSentker\Watcher\ChangedField\ChangedField;
-use DSentker\Watcher\Entity\WatchedEntity;
+use Watcher\ChangedField\ChangedField;
+use Watcher\Entity\WatchedEntity;
 
 interface UpdateHandler
 {

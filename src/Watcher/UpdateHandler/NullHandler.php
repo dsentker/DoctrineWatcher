@@ -1,11 +1,11 @@
 <?php
 
-namespace DSentker\Watcher\UpdateHandler;
+namespace Watcher\UpdateHandler;
 
-use DSentker\Watcher\ChangedField\ChangedField;
-use DSentker\Watcher\UpdateHandler;
-use DSentker\Watcher\Entity\WatchedEntity;
-use DSentker\Watcher\ValueFormatter;
+use Watcher\ChangedField\ChangedField;
+use Watcher\UpdateHandler;
+use Watcher\Entity\WatchedEntity;
+use Watcher\ValueFormatter;
 
 class NullHandler implements UpdateHandler
 {

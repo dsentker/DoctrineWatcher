@@ -1,13 +1,13 @@
 <?php
 
-namespace DSentker\Watcher\UpdateHandler;
+namespace Watcher\UpdateHandler;
 
 use Doctrine\ORM\EntityManager;
-use DSentker\Watcher\ChangedField\ChangedField;
-use DSentker\Watcher\Entity\EntityLog;
-use DSentker\Watcher\UpdateHandler;
-use DSentker\Watcher\Entity\WatchedEntity;
-use DSentker\Watcher\ValueFormatter;
+use Watcher\ChangedField\ChangedField;
+use Watcher\Entity\EntityLog;
+use Watcher\UpdateHandler;
+use Watcher\Entity\WatchedEntity;
+use Watcher\ValueFormatter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 

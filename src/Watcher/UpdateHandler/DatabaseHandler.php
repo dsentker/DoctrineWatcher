@@ -1,13 +1,13 @@
 <?php
 
-namespace DSentker\Watcher\UpdateHandler;
+namespace Watcher\UpdateHandler;
 
 use Doctrine\ORM\EntityManager;
-use DSentker\Watcher\ChangedField\ChangedField;
-use DSentker\Watcher\Entity\EntityLog;
-use DSentker\Watcher\Entity\WatchedEntity;
-use DSentker\Watcher\UpdateHandlerEntityManagerAware;
-use DSentker\Watcher\ValueFormatter;
+use Watcher\ChangedField\ChangedField;
+use Watcher\Entity\EntityLog;
+use Watcher\Entity\WatchedEntity;
+use Watcher\UpdateHandlerEntityManagerAware;
+use Watcher\ValueFormatter;
 
 class DatabaseHandler implements UpdateHandlerEntityManagerAware
 {

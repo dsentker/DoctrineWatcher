@@ -1,6 +1,6 @@
 <?php
 
-namespace DSentker\Watcher;
+namespace Watcher;
 
 use Doctrine\ORM\EntityManager;
 

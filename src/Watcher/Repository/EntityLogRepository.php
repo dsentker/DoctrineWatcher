@@ -1,9 +1,9 @@
 <?php
-namespace DSentker\Watcher\Repository;
+namespace Watcher\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use DSentker\Watcher\Entity\EntityLog;
-use DSentker\Watcher\Entity\WatchedEntity;
+use Watcher\Entity\EntityLog;
+use Watcher\Entity\WatchedEntity;
 
 class EntityLogRepository extends EntityRepository
 {

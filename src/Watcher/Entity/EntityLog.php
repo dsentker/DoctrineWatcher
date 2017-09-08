@@ -1,13 +1,13 @@
 <?php
 
-namespace DSentker\Watcher\Entity;
+namespace Watcher\Entity;
 
-use DSentker\Watcher\ChangedField\ChangedField;
+use Watcher\ChangedField\ChangedField;
 
 /**
  * Class EntityLog
  *
- * @Entity
+ * @Entity(repositoryClass="Watcher\Repository\EntityLogRepository")
  * @Table(name="entity_logs")
  */
 class EntityLog

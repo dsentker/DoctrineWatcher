@@ -1,6 +1,6 @@
 <?php
 
-namespace DSentker\Watcher\ChangedField;
+namespace Watcher\ChangedField;
 
 class ChangedField
 {

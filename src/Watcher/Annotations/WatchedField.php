@@ -1,10 +1,9 @@
 <?php
 
-namespace DSentker\Watcher\Annotations;
+namespace Watcher\Annotations;
 
 use Doctrine\ORM\Mapping\Annotation;
-use DSentker\Watcher\ValueFormatter;
-use DSentker\Watcher\ValueFormatter\DefaultFormatter;
+use Watcher\ValueFormatter;
 
 /**
  * @Annotation

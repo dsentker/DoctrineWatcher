@@ -1,6 +1,6 @@
 <?php
 
-namespace DSentker\Watcher\Entity;
+namespace Watcher\Entity;
 
 interface WatchedEntity
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace DSentker\Watcher\ValueFormatter;
+namespace Watcher\ValueFormatter;
 
 use Doctrine\Common\Collections\Collection;
 

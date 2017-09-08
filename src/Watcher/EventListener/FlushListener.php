@@ -1,21 +1,25 @@
 <?php
 
-namespace DSentker\Watcher\EventListener;
+namespace Watcher\EventListener;
 
 
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\Common\Annotations\CachedReader;
+use Doctrine\Common\Annotations\DocParser;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\UnitOfWork;
-use DSentker\Watcher\Annotations\WatchedField;
-use DSentker\Watcher\ChangedField\ChangedField;
-use DSentker\Watcher\Entity\EntityLog;
-use DSentker\Watcher\Entity\WatchedEntity;
-use DSentker\Watcher\UpdateHandler;
-use DSentker\Watcher\UpdateHandlerEntityManagerAware;
-use DSentker\Watcher\ValueFormatter;
-use DSentker\Watcher\ValueFormatter\DefaultFormatter;
+use Watcher\Annotations\WatchedField;
+use Watcher\ChangedField\ChangedField;
+use Watcher\Entity\EntityLog;
+use Watcher\Entity\WatchedEntity;
+use Watcher\UpdateHandler;
+use Watcher\UpdateHandlerEntityManagerAware;
+use Watcher\ValueFormatter;
+use Watcher\ValueFormatter\DefaultFormatter;
 
 class FlushListener
 {
@@ -71,8 +75,10 @@ class FlushListener
         $entityClassName = get_class($entity);
 
         $reflectionProperty = new \ReflectionProperty($entityClassName, $field);
+
         $propertyAnnotations = $reader->getPropertyAnnotations($reflectionProperty);
         foreach ($propertyAnnotations as $annotation) {
+
             if ($annotation instanceof WatchedField) {
                 return $annotation;
             }
@@ -99,7 +105,11 @@ class FlushListener
 
         /** @var AnnotationDriver $driver */
         $driver = $em->getConfiguration()->getMetadataDriverImpl();
+
+        /** @var CachedReader $reader */
         $reader = $driver->getReader();
+
+
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
             if ($entity instanceof WatchedEntity) {
