@@ -56,7 +56,7 @@ class LogHandler implements UpdateHandler
     public function handleUpdate(ChangedField $changedField, ValueFormatter $formatter, WatchedEntity $entity)
     {
 
-        $message = vprintf('Field "%s" (%s) changed from %s to %s.', [
+        $message = vsprintf('Field "%s" (%s) changed from %s to %s.', [
             $changedField->getFieldLabel(),
             $changedField->getFieldName(),
             $formatter->formatValue($changedField->getOldValue()),
