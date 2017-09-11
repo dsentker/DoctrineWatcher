@@ -2,7 +2,6 @@
 
 namespace Watcher\EventListener;
 
-
 use Doctrine\Common\Annotations\CachedReader;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\Event\OnFlushEventArgs;
@@ -18,8 +17,8 @@ use Watcher\ValueFormatter\DefaultFormatter;
 class FlushListener
 {
 
-    /** @var UpdateHandler */
-    protected $handler;
+    /** @var UpdateHandler[] */
+    protected $handler = [];
 
     /** @var ValueFormatter */
     protected $defaultValueFormatter;
@@ -32,7 +31,7 @@ class FlushListener
      */
     public function __construct(UpdateHandler $handler, ValueFormatter $defaultFormatter = null)
     {
-        $this->handler = $handler;
+        $this->handler[] = $handler;
         $this->defaultValueFormatter = (null !== $defaultFormatter) ? $defaultFormatter : new DefaultFormatter();
     }
 
@@ -52,6 +51,24 @@ class FlushListener
         $this->defaultValueFormatter = $defaultValueFormatter;
     }
 
+    /**
+     * @param UpdateHandler $handler
+     *
+     * @return $this
+     */
+    public function pushUpdateHandler(UpdateHandler $handler)
+    {
+        $this->handler[] = $handler;
+        return $this;
+    }
+
+    /**
+     * @return UpdateHandler[]
+     */
+    public function getUpdateHandler()
+    {
+        return $this->handler;
+    }
 
     /**
      * @param Reader $reader
@@ -80,7 +97,6 @@ class FlushListener
 
         return null;
 
-
     }
 
 
@@ -93,64 +109,66 @@ class FlushListener
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
-        if ($this->handler instanceof UpdateHandlerEntityManagerAware) {
-            $this->handler->setEntityManager($em);
-        }
+        foreach ($this->handler as $handler) {
+            if ($handler instanceof UpdateHandlerEntityManagerAware) {
+                $handler->setEntityManager($em);
+            }
 
-        /** @var AnnotationDriver $driver */
-        $driver = $em->getConfiguration()->getMetadataDriverImpl();
+            /** @var AnnotationDriver $driver */
+            $driver = $em->getConfiguration()->getMetadataDriverImpl();
 
-        /** @var CachedReader $reader */
-        $reader = $driver->getReader();
+            /** @var CachedReader $reader */
+            $reader = $driver->getReader();
 
+            foreach ($uow->getScheduledEntityUpdates() as $entity) {
 
+                if ($entity instanceof WatchedEntity) {
 
-        foreach ($uow->getScheduledEntityUpdates() as $entity) {
-            if ($entity instanceof WatchedEntity) {
-
-                // Natural Fields
-                $changedFields = $uow->getEntityChangeSet($entity);
-
-
-                foreach ($changedFields as $field => $values) {
-                    list($oldValue, $newValue) = $values;
-                    $annotation = $this->getWatchedFieldAnnotation($reader, $entity, $field);
-                    if ($annotation) {
-
-                        $changedFieldObject = new ChangedField($oldValue, $newValue, $field, $annotation->label);
-                        $formatter = ($annotation->hasValueFormatter()) ? $annotation->getFormatterClassInstance() : $this->getDefaultValueFormatter();
-
-                        $this->handler->handleUpdate($changedFieldObject, $formatter, $entity);
-
-                    }
-                }
+                    // Natural Fields
+                    $changedFields = $uow->getEntityChangeSet($entity);
 
 
-                // Associations
-                foreach ($uow->getScheduledCollectionUpdates() as $collectionUpdate) {
-                    /** @var $collectionUpdate \Doctrine\ORM\PersistentCollection */
-
-
-                    if ($collectionUpdate->getOwner() === $entity) {
-                        // This entity has an association mapping which contains updates.
-
-                        $collectionMapping = $collectionUpdate->getMapping();
-                        $field = $collectionMapping['fieldName'];
-
+                    foreach ($changedFields as $field => $values) {
+                        list($oldValue, $newValue) = $values;
                         $annotation = $this->getWatchedFieldAnnotation($reader, $entity, $field);
-
                         if ($annotation) {
-                            $changedFieldObject = new ChangedField($collectionUpdate->getSnapshot(),
-                                $collectionUpdate->unwrap()->toArray(), $field, $annotation->label);
 
+                            $changedFieldObject = new ChangedField($oldValue, $newValue, $field, $annotation->label);
                             $formatter = ($annotation->hasValueFormatter()) ? $annotation->getFormatterClassInstance() : $this->getDefaultValueFormatter();
 
-                            $this->handler->handleUpdate($changedFieldObject, $formatter, $entity);
-                        }
+                            $handler->handleUpdate($changedFieldObject, $formatter, $entity);
 
+                        }
+                    }
+
+
+                    // Associations
+                    foreach ($uow->getScheduledCollectionUpdates() as $collectionUpdate) {
+                        /** @var $collectionUpdate \Doctrine\ORM\PersistentCollection */
+
+
+                        if ($collectionUpdate->getOwner() === $entity) {
+                            // This entity has an association mapping which contains updates.
+
+                            $collectionMapping = $collectionUpdate->getMapping();
+                            $field = $collectionMapping['fieldName'];
+
+                            $annotation = $this->getWatchedFieldAnnotation($reader, $entity, $field);
+
+                            if ($annotation) {
+                                $changedFieldObject = new ChangedField($collectionUpdate->getSnapshot(),
+                                    $collectionUpdate->unwrap()->toArray(), $field, $annotation->label);
+
+                                $formatter = ($annotation->hasValueFormatter()) ? $annotation->getFormatterClassInstance() : $this->getDefaultValueFormatter();
+
+                                $handler->handleUpdate($changedFieldObject, $formatter, $entity);
+                            }
+
+                        }
                     }
                 }
             }
         }
+
     }
 }
