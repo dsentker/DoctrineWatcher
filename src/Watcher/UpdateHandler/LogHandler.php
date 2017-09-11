@@ -56,7 +56,7 @@ class LogHandler implements UpdateHandler
     public function handleUpdate(ChangedField $changedField, ValueFormatter $formatter, WatchedEntity $entity)
     {
 
-        $message = vsprintf('Field "%s" (%s) changed from %s to %s.', [
+        $message = vsprintf('Field "%s" (%s) changed from "%s" to "%s".', [
             $changedField->getFieldLabel(),
             $changedField->getFieldName(),
             $formatter->formatValue($changedField->getOldValue()),
@@ -65,6 +65,8 @@ class LogHandler implements UpdateHandler
 
         $this->logger->log($this->getLogLevel(), $message, [
             'entity' => $entity,
+            'entityClass' => get_class($entity),
+            'entityId' => $entity->getId(),
         ]);
 
 
