@@ -1,7 +1,7 @@
 {
   "name": "dsentker/watcher",
-  "description": "Allows to track changes on doctrine entities with an easy-to-use and highly customizable API.",
-  "version": "0.1.8",
+  "description": "Allows to track changes on doctrine entities with an easy-to-use API.",
+  "version": "0.1.9",
   "license": "MIT",
   "autoload": {
     "psr-4": {
