@@ -3,18 +3,12 @@
 namespace Watcher\EventListener;
 
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Annotations\CachedReader;
-use Doctrine\Common\Annotations\DocParser;
 use Doctrine\Common\Annotations\Reader;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Doctrine\ORM\UnitOfWork;
 use Watcher\Annotations\WatchedField;
 use Watcher\ChangedField\ChangedField;
-use Watcher\Entity\EntityLog;
 use Watcher\Entity\WatchedEntity;
 use Watcher\UpdateHandler;
 use Watcher\UpdateHandlerEntityManagerAware;

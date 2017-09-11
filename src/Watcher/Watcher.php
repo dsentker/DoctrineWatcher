@@ -6,6 +6,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\EventManager;
 use Doctrine\ORM\Events;
 use Watcher\EventListener\FlushListener;
+use Watcher\EventListener\LoadListener;
 
 class Watcher
 {
@@ -19,6 +20,7 @@ class Watcher
     {
         $eventManager = new EventManager();
         $eventManager->addEventListener(array(Events::onFlush), new FlushListener($handler));
+        $eventManager->addEventListener(array(Events::postLoad), new LoadListener());
 
         return $eventManager;
     }

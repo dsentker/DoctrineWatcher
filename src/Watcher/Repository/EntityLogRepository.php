@@ -20,7 +20,7 @@ class EntityLogRepository extends EntityRepository
             ->andWhere('l.entityClass = :class')
             ->orderBy('l.changedAt', 'DESC')
             ->setParameters([
-                'id' => $entity->getId(),
+                'id' => $entity->getId(), // Take id column name from column metadata
                 'class' => get_class($entity),
             ])
             ->getQuery()->getResult();
