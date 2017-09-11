@@ -23,6 +23,9 @@ class FlushListener
     /** @var ValueFormatter */
     protected $defaultValueFormatter;
 
+    /** @var Reader */
+    private $annotationReader;
+
     /**
      * FlushListener constructor.
      *
@@ -50,6 +53,24 @@ class FlushListener
     {
         $this->defaultValueFormatter = $defaultValueFormatter;
     }
+
+    /**
+     * @return Reader
+     */
+    public function getAnnotationReader()
+    {
+        return $this->annotationReader;
+    }
+
+    /**
+     * @param Reader $annotationReader
+     */
+    public function setAnnotationReader($annotationReader)
+    {
+        $this->annotationReader = $annotationReader;
+    }
+
+
 
     /**
      * @param UpdateHandler $handler
@@ -109,16 +130,26 @@ class FlushListener
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
-        foreach ($this->handler as $handler) {
-            if ($handler instanceof UpdateHandlerEntityManagerAware) {
-                $handler->setEntityManager($em);
-            }
+        $reader = $this->getAnnotationReader();
+        if(empty($reader)) {
+            // Try to get annotation reader from metadata driver, provided by configuration.
 
             /** @var AnnotationDriver $driver */
             $driver = $em->getConfiguration()->getMetadataDriverImpl();
 
+            if(!($driver instanceof AnnotationDriver)) {
+                throw new \RuntimeException('Annotation driver not provided! Use the Doctrine Configuration or pass it via FlushListener::setAnnotationReader!');
+            }
+
             /** @var CachedReader $reader */
             $reader = $driver->getReader();
+
+        }
+
+        foreach ($this->handler as $handler) {
+            if ($handler instanceof UpdateHandlerEntityManagerAware) {
+                $handler->setEntityManager($em);
+            }
 
             foreach ($uow->getScheduledEntityUpdates() as $entity) {
 
@@ -126,7 +157,6 @@ class FlushListener
 
                     // Natural Fields
                     $changedFields = $uow->getEntityChangeSet($entity);
-
 
                     foreach ($changedFields as $field => $values) {
                         list($oldValue, $newValue) = $values;
