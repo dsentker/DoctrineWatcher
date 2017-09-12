@@ -197,11 +197,13 @@ interface ValueFormatter
 Each ValueFormatter _must_ return a string.
 
 #### Custom value formatter
-To replace the DefaultFormatter with your own, you have to pass it to the `FlushListener`:
+To replace the DefaultFormatter with your own, you have to pass it to the `FlushListener` constructor:
 ```php
 $formatter = new \Your\Own\Formatter();
+$listener = new FlushListener($formatter);
+$listener->pushUpdateHandler(...);
 $eventManager = new EventManager();
-$eventManager->addEventListener(array(Events::onFlush), new FlushListener($handler, $formatter));
+$eventManager->addEventListener(array(Events::onFlush), $listener);
 ```
 
 You can also use a custom formatter for a particular entity field. This is also useful to hide 
