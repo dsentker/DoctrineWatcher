@@ -94,7 +94,7 @@ class FlushListener
     public function pushUpdateHandlers(array $handler)
     {
         foreach($handler as $updateHandler) {
-            $this->pushUpdateHandlers($handler);
+            $this->pushUpdateHandler($updateHandler);
         }
     }
 
