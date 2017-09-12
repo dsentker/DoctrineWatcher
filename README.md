@@ -90,9 +90,16 @@ I recommend to use composer:
 
 To enable tracking of changes, you must pass the `\Watcher\EventListener\FlushListener` to the EventManager when creating the EntityManager:
 ```php
+$listener = FlushListener::createWithHandler($handler);
 $eventManager = new EventManager();
-$eventManager->addEventListener(array(Events::onFlush), new FlushListener($handler));
-$em = EntityManager::create($dbParams, $config, $eventManager);
+
+// this tracks changes on entities
+$eventManager->addEventListener(array(Events::onFlush), $listener);
+
+// provides methods to fetch changes directly from the entity 
+$eventManager->addEventListener(array(Events::postLoad), new LoadListener());
+
+$em = EntityManager::create($dbParams, $config, Watcher::createEventManager(new DatabaseHandler()));
 
 // or, to simplify things:
 $em = EntityManager::create($dbParams, $config, Watcher::createEventManager($handler));
@@ -129,6 +136,32 @@ echo vsprintf("Last updated at (%s): Changed %s to %s", [
     $lastChange->getNewValue(),
 ]);
 ```
+
+#### Get changed fields from entity
+You can fetch the related changes directly from the entity:
+
+
+The changed fields are injected to the entity itself, if the entity supports the Interface `Watcher\Entity\LogAccessor`:
+
+```php
+interface LogAccessor extends WatchedEntity
+{
+
+    /**
+     * @return EntityLog[]
+     */
+    public function getLogs();
+
+    /**
+     * @param EntityLog[] $logs
+     */
+    public function setLogs($logs);
+
+
+}
+```
+As you can see, this Interface extends the `WatchedEntity` Interface, so there is no need to implement both interfaces.
+For an easier usage you can use the `Watcher\Entity\LogAccessorTrait` which provides this methods.
   
 <a name="handler"></a>
 ### Creating custom handler
@@ -246,8 +279,8 @@ Sorry - not yet.
 Bugs and feature request are tracked on GitHub.
  
 ## ToDo
+* Create a Symfony2 / Symfony3 bundle _(WIP)_
 * Write tests
-* Create a Symfony2 / Symfony3 bundle
 * Optimize performance (group changes)
  
 ## External Libraries
