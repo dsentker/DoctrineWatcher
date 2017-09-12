@@ -7,14 +7,14 @@
 CREATE TABLE IF NOT EXISTS `entity_logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `changed_at` datetime NOT NULL,
-  `entity_class` varchar(128) NOT NULL,
+  `entity_class` varchar(150) NOT NULL,
   `entity_id` int(10) unsigned NOT NULL,
   `field` varchar(50) NOT NULL,
   `label` varchar(50) DEFAULT NULL,
-  `old_value` varchar(50) NOT NULL,
-  `new_value` varchar(50) NOT NULL,
+  `old_value` varchar(128) NOT NULL,
+  `new_value` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
