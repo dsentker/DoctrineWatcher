@@ -23,19 +23,37 @@ class DatabaseHandler implements UpdateHandlerEntityManagerAware
         $this->em = $em;
     }
 
-    public function handleUpdate(ChangedField $changedField, ValueFormatter $formatter, WatchedEntity $entity)
-    {
-
-        $uow = $this->em->getUnitOfWork();
-
+    /**
+     * This method is the perfect start point when this class is extended.
+     *
+     * @param WatchedEntity  $entity
+     * @param ChangedField   $changedField
+     * @param ValueFormatter $formatter
+     *
+     * @return EntityLog
+     */
+    protected function createNewEntity(WatchedEntity $entity, ChangedField $changedField, ValueFormatter $formatter) {
         $log = new EntityLog($entity);
         $log->setOldValue($formatter->formatValue($changedField->getOldValue()));
         $log->setNewValue($formatter->formatValue($changedField->getNewValue()));
         $log->setField($changedField->getFieldName());
         $log->setLabel($changedField->getFieldLabel());
 
+        return $log;
+    }
+
+    /**
+     * @param ChangedField   $changedField
+     * @param ValueFormatter $formatter
+     * @param WatchedEntity  $entity
+     */
+    public function handleUpdate(ChangedField $changedField, ValueFormatter $formatter, WatchedEntity $entity)
+    {
+
+        $log = $this->createNewEntity($entity, $changedField, $formatter);
+
         $this->em->persist($log);
-        $uow->computeChangeSets();
+        $this->em->getUnitOfWork()->computeChangeSets();
 
         // The two lines below were suggested in documentation, but are not needed IMHO.
         #$metaData = $this->em->getClassMetadata(get_class($entity));
