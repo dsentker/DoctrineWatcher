@@ -18,8 +18,9 @@ class Watcher
      */
     public static function createEventManager(UpdateHandler $handler)
     {
+        $listener = FlushListener::createWithHandler($handler);
         $eventManager = new EventManager();
-        $eventManager->addEventListener(array(Events::onFlush), new FlushListener($handler));
+        $eventManager->addEventListener(array(Events::onFlush), $listener);
         $eventManager->addEventListener(array(Events::postLoad), new LoadListener());
 
         return $eventManager;

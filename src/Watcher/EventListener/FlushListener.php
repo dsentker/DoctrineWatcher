@@ -29,13 +29,23 @@ class FlushListener
     /**
      * FlushListener constructor.
      *
-     * @param UpdateHandler       $handler
      * @param ValueFormatter|null $defaultFormatter
      */
-    public function __construct(UpdateHandler $handler, ValueFormatter $defaultFormatter = null)
+    public function __construct(ValueFormatter $defaultFormatter = null)
     {
-        $this->handler[] = $handler;
         $this->defaultValueFormatter = (null !== $defaultFormatter) ? $defaultFormatter : new DefaultFormatter();
+    }
+
+    /**
+     * @param UpdateHandler $handler
+     *
+     * @return FlushListener
+     */
+    public static function createWithHandler(UpdateHandler $handler)
+    {
+        $listener = new static();
+        $listener->pushUpdateHandler($handler);
+        return $listener;
     }
 
     /**
