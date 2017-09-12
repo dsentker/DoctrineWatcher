@@ -80,8 +80,6 @@ class FlushListener
         $this->annotationReader = $annotationReader;
     }
 
-
-
     /**
      * @param UpdateHandler $handler
      *
@@ -91,6 +89,18 @@ class FlushListener
     {
         $this->handler[] = $handler;
         return $this;
+    }
+
+    public function pushUpdateHandlers(array $handler)
+    {
+        foreach($handler as $updateHandler) {
+            $this->pushUpdateHandlers($handler);
+        }
+    }
+
+    protected function clearUpdateHandlers()
+    {
+        $this->handler = [];
     }
 
     /**

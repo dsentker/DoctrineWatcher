@@ -10,6 +10,9 @@ use Watcher\Repository\EntityLogRepository;
 class LoadListener
 {
 
+    /**
+     * @param LifecycleEventArgs $args
+     */
     public function postLoad(LifecycleEventArgs $args)
     {
 
