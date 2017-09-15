@@ -5,9 +5,10 @@
 ## Documentation
 [View Documentation](https://dsentker.github.io/WatcherDocumentation/)
 
+## Quick example
 ***
 
-You can use this library to track changes to Entites. You can use annotations to define the fields that you want to monitor. They determine where the changes are to be saved.
+You can use this library to track changes to Doctrine Entites. Use annotations to define the fields that you want to monitor. They determine where the changes are to be saved.
 
 ```php
 // User Entity class
