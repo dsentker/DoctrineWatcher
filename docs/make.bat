@@ -1,0 +1,1 @@
+daux --source=markdown --destination=static

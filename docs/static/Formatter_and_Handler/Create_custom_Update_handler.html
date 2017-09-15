@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Create custom Update handler - DoctrineWatcher</title>
+    <meta name="description" content="Allows to track changes on doctrine entities with an easy-to-use API." />
+    <meta name="author" content="Daniel Sentker">
+    <meta charset="UTF-8">
+    <link rel="icon" href="../themes/daux/img/favicon-navy.png" type="image/x-icon">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-navy.min.css' rel='stylesheet' type='text/css'>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="with-float ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger--bar"></span>
+            <span class="Collapsible__trigger--bar"></span>
+            <span class="Collapsible__trigger--bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">DoctrineWatcher</a>
+
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Introduction</a><ul class='Nav'><li class='Nav__item '><a href="../Introduction/Background.html">Background</a></li><li class='Nav__item '><a href="../Introduction/Requirements_and_Installation.html">Requirements and Installation</a></li><li class='Nav__item '><a href="../Introduction/Setup.html">Setup</a></li></ul></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Usage</a><ul class='Nav'><li class='Nav__item '><a href="../Usage/Entity_Preparements.html">Entity Preparements</a></li><li class='Nav__item '><a href="../Usage/Annotation_options.html">Annotation options</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Formatter and Handler</a><ul class='Nav'><li class='Nav__item '><a href="../Formatter_and_Handler/Using_Value_formatters.html">Using Value formatters</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Database - Writing and reading entity changes</a><ul class='Nav'><li class='Nav__item '><a href="../Formatter_and_Handler/Database_-_Writing_and_reading_entity_changes/Overview.html">Overview</a></li><li class='Nav__item '><a href="../Formatter_and_Handler/Database_-_Writing_and_reading_entity_changes/Fetching_Entity_logs.html">Fetching Entity logs</a></li><li class='Nav__item '><a href="../Formatter_and_Handler/Database_-_Writing_and_reading_entity_changes/Use_a_custom_database_handler.html">Use a custom database handler</a></li></ul></li><li class='Nav__item '><a href="../Formatter_and_Handler/Logging_Entity_changes.html">Logging Entity changes</a></li><li class='Nav__item Nav__item--active'><a href="../Formatter_and_Handler/Create_custom_Update_handler.html">Create custom Update handler</a></li></ul></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://github.com/dsentker/DoctrineWatcher" target="_blank">GitHub Repo</a>
+                        <br />
+                                            <a href="https://github.com/dsentker/DoctrineWatcher/issues" target="_blank">Help / Support / Bugs</a>
+                        <br />
+                                    
+                                    <div class="CodeToggler">
+                        <hr/>
+                                                    <span class="CodeToggler__text">Code blocks</span>
+                            <div class="ButtonGroup" role="group">
+                                <button class="Button Button--default Button--small CodeToggler__button CodeToggler__button--hide">No</button>
+                                <button class="Button Button--default Button--small CodeToggler__button CodeToggler__button--below">Below</button>
+                                <button class="Button Button--default Button--small CodeToggler__button CodeToggler__button--float">Inline</button>
+                            </div>
+                                            </div>
+                
+                            </div>
+        </div>
+    </aside>
+    <div class="Columns__right Columns__right--float">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Formatter_and_Handler/Using_Value_formatters.html">Formatter and Handler</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Formatter_and_Handler/Create_custom_Update_handler.html">Create custom Update handler</a></h1>
+                <span style="float: left; font-size: 10px; color: gray;">
+            Friday, September 15, 2017 6:40 PM        </span>
+                        <span style="float: right; font-size: 10px; color: gray;">
+            <a href="https://github.com/dsentker/DoctrineWatcher/master/docs/markdown/02_Formatter_and_Handler\03_Create_custom_Update_handler.md" target="_blank">Edit on GitHub</a>
+        </span>
+            </div>
+
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Create-custom-update-Handler">Create custom update Handler</a></p>
+</li>
+</ul>
+<h2 id="page_Create-custom-update-Handler">Create custom update Handler</h2>
+<p>If the two handlers do not meet your expectations, you can (of course) create your own. If you look at the interface (<code>\Watcher\UpdateHandler</code>), you see that this is easy:</p>
+<pre><code class="language-php">interface UpdateHandler
+{
+
+    public function handleUpdate(ChangedField $changedField, ValueFormatter $formatter, WatchedEntity $entity);
+
+}
+</code></pre>
+<p>The method UpdateHandler::handleUpdate() is called for each field individually. Grouping is not possible since doctrines flush process can be executed several times during the runtime.</p>
+<p>The three parameters should be self-explanatory:</p>
+<ul>
+<li>The <strong>ChangedField</strong> instance is a non-persistent domain object which contains methods to receive the following property details:
+<ul>
+<li>The field <em>name</em> (is equal to the property name from your entity)</li>
+<li>The field <em>label</em> (a user-friendly representation from your entity field)</li>
+<li>The old value*</li>
+<li>The new value*</li>
+</ul>
+</li>
+<li>The <strong>ValueFormatter</strong> handles the job for the upcoming string conversion. It was set when creating the FlushListener OR overridden in your entity (see &quot;Usage&quot; &gt; &quot;Annotation options&quot; for more information)</li>
+<li>
+<strong>WatchedEntity</strong> is the entity which is related to the changed field</li>
+</ul>
+<p><small>*) Keep in mind that this values are not &quot;stringified&quot;. Have a look at the ValueFormatter for further information.</small></p>
+<p>With this in mind, you can create your own handler. Let's say you want to receive an SMS on your mobile phone when a a user changes his email address:</p>
+<p>Create a new class and dont forget to implement the interface \Watcher\UpdateHandler:</p>
+<pre><code class="language-php">namespace Example;
+
+use Watcher\ChangedField\ChangedField;
+use Watcher\Entity\WatchedEntity;
+use Watcher\UpdateHandler;
+use Watcher\ValueFormatter;
+
+class SmsHandler implements UpdateHandler {
+
+    public function handleUpdate(ChangedField $changedField, ValueFormatter $formatter, WatchedEntity $entity)
+    {
+
+        if(($entity instanceof \Example\Entity\User) &amp;&amp; ('emailAddress' == $changedField-&gt;getFieldName())) {
+
+            $newEmailAddress = $formatter-&gt;formatValue($changedField-&gt;getNewValue());
+            $message = sprintf('Wohoo! %s has changed his email adress to &quot;%s&quot;!', $entity-&gt;getUsername(), $newEmailAddress);
+
+            SomeSmsSenderService::send($message);
+        }
+
+    }
+
+}
+</code></pre>
+<p>The last step is to assign your new handler within the configuration:</p>
+<pre><code class="language-php">$updateHandler = new SmsHandler();
+$em = EntityManager::create($dbParams, $config, Watcher::createEventManager($updateHandler));
+</code></pre>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Formatter_and_Handler/Logging_Entity_changes.html">Previous</a></li>                    </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../themes/daux/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../themes/daux/js/daux.js"></script>
+
+    
+</body>
+</html>

@@ -9,6 +9,8 @@ use Watcher\ValueFormatter;
 class DefaultFormatter implements ValueFormatter
 {
 
+    const MAX_STRING_LENGTH = 64;
+
     /**
      * @param bool $value
      *
@@ -34,7 +36,9 @@ class DefaultFormatter implements ValueFormatter
      */
     protected function formatString($value)
     {
-        return (string)$value;
+        return (mb_strlen($value) > static::MAX_STRING_LENGTH)
+            ? substr((string)$value, 0, static::MAX_STRING_LENGTH) . ' [...]'
+            : (string)$value;
     }
 
     /**

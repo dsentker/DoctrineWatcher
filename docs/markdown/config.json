@@ -1,0 +1,21 @@
+{
+  "title": "DoctrineWatcher",
+  "tagline": "Allows to track changes on doctrine entities with an easy-to-use API.",
+  "author": "Daniel Sentker",
+  "image": "app.png",
+  "html": {
+    "edit_on_github": "dsentker/DoctrineWatcher/master/docs/markdown",
+    "float": true,
+    "auto_toc": true,
+    "theme": "daux-navy",
+    "toggle_code": true,
+    "repo": "dsentker/DoctrineWatcher",
+    "links": {
+      "GitHub Repo": "https://github.com/dsentker/DoctrineWatcher",
+      "Help / Support / Bugs": "https://github.com/dsentker/DoctrineWatcher/issues"
+    },
+    "date_modified": true,
+    "search": false
+  },
+  "timezone": "Europe/Berlin"
+}

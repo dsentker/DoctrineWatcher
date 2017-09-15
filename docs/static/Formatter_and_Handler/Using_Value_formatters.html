@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Using Value formatters - DoctrineWatcher</title>
+    <meta name="description" content="Allows to track changes on doctrine entities with an easy-to-use API." />
+    <meta name="author" content="Daniel Sentker">
+    <meta charset="UTF-8">
+    <link rel="icon" href="../themes/daux/img/favicon-navy.png" type="image/x-icon">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-navy.min.css' rel='stylesheet' type='text/css'>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="with-float ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger--bar"></span>
+            <span class="Collapsible__trigger--bar"></span>
+            <span class="Collapsible__trigger--bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">DoctrineWatcher</a>
+
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Introduction</a><ul class='Nav'><li class='Nav__item '><a href="../Introduction/Background.html">Background</a></li><li class='Nav__item '><a href="../Introduction/Requirements_and_Installation.html">Requirements and Installation</a></li><li class='Nav__item '><a href="../Introduction/Setup.html">Setup</a></li></ul></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Usage</a><ul class='Nav'><li class='Nav__item '><a href="../Usage/Entity_Preparements.html">Entity Preparements</a></li><li class='Nav__item '><a href="../Usage/Annotation_options.html">Annotation options</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Formatter and Handler</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Formatter_and_Handler/Using_Value_formatters.html">Using Value formatters</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Database - Writing and reading entity changes</a><ul class='Nav'><li class='Nav__item '><a href="../Formatter_and_Handler/Database_-_Writing_and_reading_entity_changes/Overview.html">Overview</a></li><li class='Nav__item '><a href="../Formatter_and_Handler/Database_-_Writing_and_reading_entity_changes/Fetching_Entity_logs.html">Fetching Entity logs</a></li><li class='Nav__item '><a href="../Formatter_and_Handler/Database_-_Writing_and_reading_entity_changes/Use_a_custom_database_handler.html">Use a custom database handler</a></li></ul></li><li class='Nav__item '><a href="../Formatter_and_Handler/Logging_Entity_changes.html">Logging Entity changes</a></li><li class='Nav__item '><a href="../Formatter_and_Handler/Create_custom_Update_handler.html">Create custom Update handler</a></li></ul></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://github.com/dsentker/DoctrineWatcher" target="_blank">GitHub Repo</a>
+                        <br />
+                                            <a href="https://github.com/dsentker/DoctrineWatcher/issues" target="_blank">Help / Support / Bugs</a>
+                        <br />
+                                    
+                                    <div class="CodeToggler">
+                        <hr/>
+                                                    <span class="CodeToggler__text">Code blocks</span>
+                            <div class="ButtonGroup" role="group">
+                                <button class="Button Button--default Button--small CodeToggler__button CodeToggler__button--hide">No</button>
+                                <button class="Button Button--default Button--small CodeToggler__button CodeToggler__button--below">Below</button>
+                                <button class="Button Button--default Button--small CodeToggler__button CodeToggler__button--float">Inline</button>
+                            </div>
+                                            </div>
+                
+                            </div>
+        </div>
+    </aside>
+    <div class="Columns__right Columns__right--float">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Formatter_and_Handler/Using_Value_formatters.html">Formatter and Handler</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Formatter_and_Handler/Using_Value_formatters.html">Using Value formatters</a></h1>
+                <span style="float: left; font-size: 10px; color: gray;">
+            Friday, September 15, 2017 6:40 PM        </span>
+                        <span style="float: right; font-size: 10px; color: gray;">
+            <a href="https://github.com/dsentker/DoctrineWatcher/master/docs/markdown/02_Formatter_and_Handler\00_Using_Value_formatters.md" target="_blank">Edit on GitHub</a>
+        </span>
+            </div>
+
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Value-Formatters">Value Formatters</a></p>
+</li>
+<li>
+<p><a href="#page_Using-the">Using the <code>\Watcher\ValueFormatter\DefaultFormatter</code></a></p>
+</li>
+<li>
+<p><a href="#page_Create-own-value-formatters">Create own value formatters</a></p>
+</li>
+<li>
+<p><a href="#page_Change-the-default-value-formatter">Change the default value formatter</a></p>
+</li>
+<li>
+<p><a href="#page_Specify-an-custom-formatter-for-a-single-entity-field">Specify an custom formatter for a single entity field</a></p>
+</li>
+<li>
+<p><a href="#page_Hiding-sensitive-data">Hiding sensitive data</a></p>
+</li>
+</ul>
+<h2 id="page_Value-Formatters">Value Formatters</h2>
+<p>A Value formatter is invoked, when a changed field must be converted to a string representation. This is needed, when the value of a changed property is outputted for the user (&quot;Change history&quot;).
+If a string field (e.g. VARCHAR) is changed, a value formatter is in most of the cases obsolete: You can output &quot;Field 'Username' was changed from 'John Doe' to 'Jane Doe'&quot;.</p>
+<p>But what about boolean values, arrays or objects?</p>
+<p>If a boolean value is changed, it would be nice to output &quot;Field 'User active' changed from 'Active' to 'Inactive'&quot; instead of &quot;[...] changed from '1' to '0'&quot;. Think about an category entity - without a Value formatter, the string representation of the changed field would be &quot;User category changed from '[object]' to '[object]''&quot;. This is not very intuitive. A Value formatter replaces changed values to a readable string.</p>
+<h2 id="page_Using-the">Using the <code>\Watcher\ValueFormatter\DefaultFormatter</code></h2>
+<p>The Default Formatter is used as default formatter, if no further configuration was done. This formatter converts value as following:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example value</th>
+<th>Example Output</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td>Hello World</td>
+<td>Hello World</td>
+<td>String is splitted after 64 characters</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>1</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>NULL</td>
+<td></td>
+<td>N/A</td>
+<td></td>
+</tr>
+<tr>
+<td>array</td>
+<td>['Hello', 'World']</td>
+<td>Hello, World</td>
+<td>Values are formatted again and concatenated with commas</td>
+</tr>
+<tr>
+<td>object</td>
+<td>UserEntity instance</td>
+<td>Jane Doe</td>
+<td>If a __toString() method is implemented, the returning value will be used. Otherwise, the fully-qualified namespace will be used (with get_class())</td>
+</tr>
+<tr>
+<td>datetime object</td>
+<td></td>
+<td>2017-09-25 14:31:10</td>
+<td>The method format() will be applied with the date format 'Y-m-d H:i:s'</td>
+</tr>
+<tr>
+<td>Entity Collection (@ManyToMany or @ManyToOne)</td>
+<td>ArrayCollection of other entities</td>
+<td>CustomerCategory, AdminCategory, GuestCategory</td>
+<td>If the entities have a __toString() method implemented, this value will be glued with a comma (see array)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Create-own-value-formatters">Create own value formatters</h2>
+<p>If you create your own formatter, you only have to remember that this class has to implement the following method:</p>
+<pre><code class="language-php">namespace Watcher;
+
+interface ValueFormatter
+{
+
+    /**
+     * @param mixed $value
+     *
+     * @return string
+     */
+    public function formatValue($value);
+
+}
+</code></pre>
+<p>The formatValue() method <em>must</em> return a string.</p>
+<p>If you change the formatting method for a particular data type, you can extend the DefaultFormatter class and overwrite the related method. Inspect the methods from the DefaultValueFormatter and override as you like:</p>
+<pre><code class="language-php">namespace Example;
+
+use Watcher\ValueFormatter\DefaultFormatter;
+
+class NoTimeFormatter extends DefaultFormatter {
+
+    /**
+     * @param \DateTimeInterface $dateTime
+     *
+     * @return string
+     */
+    protected function formatDateTime(\DateTimeInterface $dateTime)
+    {
+        return $dateTime-&gt;format('Y-m-d');
+    }
+
+}
+</code></pre>
+<h2 id="page_Change-the-default-value-formatter">Change the default value formatter</h2>
+<p>Now that you've created your own formatter, you might want to use it as default formatter. To achieve this, assign it to the constructor from the FlushListener:</p>
+<pre><code class="language-php">$listener = new FlushListener(new NoTimeFormatter());
+$listener-&gt;pushUpdateHandler($handler);
+$eventManager = new EventManager();
+$eventManager-&gt;addEventListener(array(Events::onFlush), $listener);
+</code></pre>
+<h2 id="page_Specify-an-custom-formatter-for-a-single-entity-field">Specify an custom formatter for a single entity field</h2>
+<p>If you want to use your formatter for a particular field, you can assign it with the property annotation:</p>
+<pre><code class="language-php">/**
+ * @ORM\Column(type=&quot;datetime&quot;, name=&quot;updated_at&quot;)
+ * @Watch\WatchedField(valueFormatter=&quot;\Example\NoTimeFormatter&quot;)
+ */
+protected $updatedAt;
+</code></pre>
+<p>Remember to set the full qualified namespace.</p>
+<h2 id="page_Hiding-sensitive-data">Hiding sensitive data</h2>
+<p>A common usage for custom formatters is the hiding of sensible data, e.g. passwords. This package has the \Watcher\ValueFormatter\ConcealFormatter, which does nothing more than mask all characters.</p>
+<pre><code class="language-php">/**
+ * @ORM\Column(type=&quot;string&quot;, length=64)
+ * @Watch\WatchedField(valueFormatter=&quot;\Watcher\ValueFormatter\ConcealFormatter&quot;)
+ */
+protected $password;
+</code></pre>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Usage/Annotation_options.html">Previous</a></li>            <li class=Pager--next><a href="../Formatter_and_Handler/Database_-_Writing_and_reading_entity_changes/Overview.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../themes/daux/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../themes/daux/js/daux.js"></script>
+
+    
+</body>
+</html>
