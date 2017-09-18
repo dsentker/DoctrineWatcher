@@ -6,8 +6,6 @@
 [View Documentation](https://dsentker.github.io/WatcherDocumentation/)
 
 ## Quick example
-***
-
 You can use this library to track changes to Doctrine Entities. Use annotations to define the fields that you want to monitor. They determine where the changes are to be saved.
 
 ```php
@@ -55,7 +53,7 @@ echo vsprintf("Last updated at (%s): Changed %s from '%s' to '%s'", [
 ## Known Limitations
 * This package is able to track changes on single fields and associations (collections), but depends 
 on the concept of Doctrine, [which is limited to track changes on fields on the **owning side**](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/unitofwork-associations.html). That means, that inverse side associations (`@OneToMany`) are NOT supported. `@ManyToMany` and `@ManyToOne` associations _are_ supported.
-* Also consider the overhead. The change of each individual(!) field results in a single database query (if you use the `DatabaseHandler`). The change of 10 fully-watched entities with 10 fields generates an additional 100 database queries.
+* Also consider the overhead. If you've chosen the DatabaseHandler, each tracked entity change results in a single database request.
 
 <a name="stuff"></a>
 ## Testing
