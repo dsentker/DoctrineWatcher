@@ -1,4 +1,8 @@
-# Watcher 
+# Watcher
+
+ [![GitHub release](https://img.shields.io/github/release/dsentker/DoctrineWatcher.svg?style=flat-square)]()
+ [![Packagist](https://img.shields.io/packagist/v/dsentker/watcher.svg?style=flat-square)]()
+ [![Maintenance](https://img.shields.io/maintenance/yes/2017.svg?style=flat-square)]()
 
 **Allows to track changes on doctrine entities with an easy-to-use and highly customizable API.**
 
