@@ -117,6 +117,7 @@ class FlushListener
      * @param string $field
      *
      * @return WatchedField|null
+     * @throws \ReflectionException
      */
     private function getWatchedFieldAnnotation(Reader $reader, $entity, $field)
     {
@@ -158,7 +159,7 @@ class FlushListener
             $driver = $em->getConfiguration()->getMetadataDriverImpl();
 
             if(!($driver instanceof AnnotationDriver)) {
-                throw new \RuntimeException('Annotation driver not provided! Use the Doctrine Configuration or pass it via FlushListener::setAnnotationReader!');
+                throw new \RuntimeException(sprintf('Annotation driver not provided (given: "%s"! Use the Doctrine Configuration or pass it via %s::setAnnotationReader!', get_class($driver), __CLASS__));
             }
 
             /** @var CachedReader $reader */

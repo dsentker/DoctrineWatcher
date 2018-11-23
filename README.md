@@ -53,6 +53,31 @@ echo vsprintf("Last updated at (%s): Changed %s from '%s' to '%s'", [
 ]); // Last updated at 2017-09-07: Changed Email Address from 'foo@example.com' to 'foo42@example.com' 
 ```
 
+## Symfony4 services.yaml integration (example)
+```yaml
+
+    watcher.db_handler:
+        class:         App\Utils\AppWatcherHandler #your handler, e.g. Database Handler
+        autowire:      true
+
+    Watcher\EventListener\FlushListener:
+        calls:
+            -   method: pushUpdateHandler
+                arguments:
+                    - '@watcher.db_handler'
+            -   method: setAnnotationReader
+                arguments:
+                    - '@annotations.reader'
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }
+    Watcher\EventListener\LoadListener:
+        arguments:
+            -  'App\Entity\EntityLog' # The entity which relates to EntityLogRepository
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+
+```
+
 <a name="limitations"></a>
 ## Known Limitations
 * This package is able to track changes on single fields and associations (collections), but depends 
@@ -70,7 +95,8 @@ TBD (support is appreciated!)
 Bugs and feature request are tracked on GitHub.
  
 ## ToDo
-* Create a Symfony2 / Symfony3 bundle _(WIP)_
+* Use interfaces for everything
+* Easy Symfony4 integration
 * Write tests
 * Optimize performance (group changes?)
  

@@ -14,6 +14,23 @@ use Watcher\Repository\EntityLogRepository;
 class LoadListener
 {
 
+    /** @var string */
+    private $entityLogClassname;
+
+    /**
+     * LoadListener constructor.
+     *
+     * @param string $entityLogClassname
+     */
+    public function __construct($entityLogClassname)
+    {
+        if(!class_exists($entityLogClassname)) {
+            throw new \RuntimeException(sprintf('Invalid entity log classname "%s": Must be a full-qualified class name of the EntityLog.', $entityLogClassname));
+        }
+        $this->entityLogClassname = $entityLogClassname;
+    }
+
+
     /**
      * @param LifecycleEventArgs $args
      */
@@ -21,12 +38,13 @@ class LoadListener
     {
         $entity = $args->getEntity();
 
-        /** @var EntityLogRepository $logRepo */
-        $logRepo = $args->getEntityManager()->getRepository(get_class($entity));
-
         if ($entity instanceof LogAccessor) {
+
+            /** @var EntityLogRepository $logRepo */
+            $logRepo = $args->getEntityManager()->getRepository($this->entityLogClassname);
             $entity->setLogs($logRepo->getLogsFromEntity($entity));
         }
+
 
     }
 }
