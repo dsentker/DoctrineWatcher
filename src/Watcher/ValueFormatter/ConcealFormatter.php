@@ -4,6 +4,11 @@ namespace Watcher\ValueFormatter;
 
 use Doctrine\Common\Collections\Collection;
 
+/**
+ * Class ConcealFormatter
+ *
+ * @package Watcher\ValueFormatter
+ */
 class ConcealFormatter extends DefaultFormatter
 {
 

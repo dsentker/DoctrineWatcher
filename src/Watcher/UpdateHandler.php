@@ -5,6 +5,11 @@ namespace Watcher;
 use Watcher\ChangedField\ChangedField;
 use Watcher\Entity\WatchedEntity;
 
+/**
+ * Interface UpdateHandler
+ *
+ * @package Watcher
+ */
 interface UpdateHandler
 {
 

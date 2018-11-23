@@ -2,6 +2,11 @@
 
 namespace Watcher\Entity;
 
+/**
+ * Interface LogAccessor
+ *
+ * @package Watcher\Entity
+ */
 interface LogAccessor extends WatchedEntity
 {
 
@@ -14,6 +19,5 @@ interface LogAccessor extends WatchedEntity
      * @param EntityLog[] $logs
      */
     public function setLogs($logs);
-
 
 }

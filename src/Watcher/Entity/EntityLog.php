@@ -56,6 +56,13 @@ class EntityLog
      */
     protected $newValue;
 
+    /**
+     * EntityLog constructor.
+     *
+     * @param WatchedEntity $entity
+     *
+     * @throws \Exception
+     */
     public function __construct(WatchedEntity $entity)
     {
         $this->entityClass = get_class($entity);
@@ -68,6 +75,7 @@ class EntityLog
      * @param ChangedField  $changedField
      *
      * @return static
+     * @throws \Exception
      */
     public static function createFormChangedField(WatchedEntity $entity, ChangedField $changedField)
     {

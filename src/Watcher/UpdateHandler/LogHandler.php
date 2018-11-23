@@ -69,7 +69,6 @@ class LogHandler implements UpdateHandler
             'entityId' => $entity->getId(),
         ]);
 
-
     }
 
 }

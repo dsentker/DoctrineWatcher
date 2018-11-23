@@ -1,12 +1,18 @@
 <?php
+
 namespace Watcher\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Trait LogAccessorTrait
+ *
+ * @package Watcher\Entity
+ */
 trait LogAccessorTrait
 {
 
-    /** @var EntityLog[]  */
+    /** @var EntityLog[] */
     private $logs;
 
     /**

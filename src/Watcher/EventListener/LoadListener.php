@@ -6,6 +6,11 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Watcher\Entity\LogAccessor;
 use Watcher\Repository\EntityLogRepository;
 
+/**
+ * Class LoadListener
+ *
+ * @package Watcher\EventListener
+ */
 class LoadListener
 {
 
@@ -22,7 +27,6 @@ class LoadListener
         if ($entity instanceof LogAccessor) {
             $entity->setLogs($logRepo->getLogsFromEntity($entity));
         }
-
 
     }
 }

@@ -8,6 +8,11 @@ use Doctrine\ORM\Events;
 use Watcher\EventListener\FlushListener;
 use Watcher\EventListener\LoadListener;
 
+/**
+ * Class Watcher
+ *
+ * @package Watcher
+ */
 class Watcher
 {
 

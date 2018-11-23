@@ -7,6 +7,11 @@ use Watcher\UpdateHandler;
 use Watcher\Entity\WatchedEntity;
 use Watcher\ValueFormatter;
 
+/**
+ * Class NullHandler
+ *
+ * @package Watcher\UpdateHandler
+ */
 class NullHandler implements UpdateHandler
 {
 
@@ -17,9 +22,7 @@ class NullHandler implements UpdateHandler
      */
     public function handleUpdate(ChangedField $changedField, ValueFormatter $formatter, WatchedEntity $entity)
     {
-
         return;
-
     }
 
 }

@@ -2,6 +2,11 @@
 
 namespace Watcher\Entity;
 
+/**
+ * Interface WatchedEntity
+ *
+ * @package Watcher\Entity
+ */
 interface WatchedEntity
 {
 
@@ -9,6 +14,5 @@ interface WatchedEntity
      * @return int
      */
     public function getId();
-
 
 }

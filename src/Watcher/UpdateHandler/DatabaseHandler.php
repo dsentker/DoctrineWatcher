@@ -9,6 +9,11 @@ use Watcher\Entity\WatchedEntity;
 use Watcher\UpdateHandlerEntityManagerAware;
 use Watcher\ValueFormatter;
 
+/**
+ * Class DatabaseHandler
+ *
+ * @package Watcher\UpdateHandler
+ */
 class DatabaseHandler implements UpdateHandlerEntityManagerAware
 {
 
@@ -31,6 +36,7 @@ class DatabaseHandler implements UpdateHandlerEntityManagerAware
      * @param ValueFormatter $formatter
      *
      * @return EntityLog
+     * @throws \Exception
      */
     protected function createNewEntity(WatchedEntity $entity, ChangedField $changedField, ValueFormatter $formatter) {
         $log = new EntityLog($entity);
@@ -46,6 +52,8 @@ class DatabaseHandler implements UpdateHandlerEntityManagerAware
      * @param ChangedField   $changedField
      * @param ValueFormatter $formatter
      * @param WatchedEntity  $entity
+     *
+     * @throws \Exception
      */
     public function handleUpdate(ChangedField $changedField, ValueFormatter $formatter, WatchedEntity $entity)
     {

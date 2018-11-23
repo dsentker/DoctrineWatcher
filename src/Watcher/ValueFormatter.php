@@ -1,6 +1,11 @@
 <?php
 namespace Watcher;
 
+/**
+ * Interface ValueFormatter
+ *
+ * @package Watcher
+ */
 interface ValueFormatter
 {
 

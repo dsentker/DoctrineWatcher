@@ -5,6 +5,11 @@ use Doctrine\ORM\EntityRepository;
 use Watcher\Entity\EntityLog;
 use Watcher\Entity\WatchedEntity;
 
+/**
+ * Class EntityLogRepository
+ *
+ * @package Watcher\Repository
+ */
 class EntityLogRepository extends EntityRepository
 {
 

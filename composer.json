@@ -20,7 +20,8 @@
     "php": "^5.5 || ^7.0",
     "doctrine/orm": "2.*",
     "doctrine/annotations": "1.*",
-    "psr/log": "^1.0"
+    "psr/log": "^1.0",
+    "ext-mbstring": "*"
   },
   "suggest": {
     "monolog/monolog": "Allows logging of changed entities"
