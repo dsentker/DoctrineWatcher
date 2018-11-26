@@ -5,7 +5,6 @@ use App\Entity\EntityLog;
 use Symfony\Component\Security\Core\Security;
 use Watcher\ChangedField\ChangedField;
 use Watcher\Entity\WatchedEntity;
-use Watcher\UpdateHandler\DatabaseHandler;
 use Watcher\ValueFormatter;
 
 /**
@@ -13,7 +12,7 @@ use Watcher\ValueFormatter;
  *
  * @package Watcher\UpdateHandler
  */
-class AppWatcherHandler extends DatabaseHandler
+class SymfonyDatabaseHandler extends DatabaseHandler
 {
 
     /** @var Security */
@@ -49,6 +48,5 @@ class AppWatcherHandler extends DatabaseHandler
 
         return $log;
     }
-
 
 }
