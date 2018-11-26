@@ -26,7 +26,7 @@ class DefaultFormatter implements ValueFormatter
      */
     protected function formatNull()
     {
-        return 'N/A';
+        return '';
     }
 
     /**
