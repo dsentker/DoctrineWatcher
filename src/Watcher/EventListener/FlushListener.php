@@ -14,6 +14,11 @@ use Watcher\UpdateHandlerEntityManagerAware;
 use Watcher\ValueFormatter;
 use Watcher\ValueFormatter\DefaultFormatter;
 
+/**
+ * Class FlushListener
+ *
+ * @package Watcher\EventListener
+ */
 class FlushListener
 {
 
@@ -93,7 +98,7 @@ class FlushListener
 
     public function pushUpdateHandlers(array $handler)
     {
-        foreach($handler as $updateHandler) {
+        foreach ($handler as $updateHandler) {
             $this->pushUpdateHandler($updateHandler);
         }
     }
@@ -112,22 +117,25 @@ class FlushListener
     }
 
     /**
-     * @param Reader $reader
-     * @param mixed  $entity
-     * @param string $field
+     * @param Reader        $reader
+     * @param WatchedEntity $entity
+     * @param string        $field
      *
      * @return WatchedField|null
      * @throws \ReflectionException
      */
-    private function getWatchedFieldAnnotation(Reader $reader, $entity, $field)
+    private function getWatchedFieldAnnotation(Reader $reader, WatchedEntity $entity, $field)
     {
-        if (!is_object($entity)) {
-            throw new \InvalidArgumentException(sprintf('Expected Entity, given: %s!', gettype($entity)));
+
+        $dotPosition = strpos($field, '.');
+        if (false !== $dotPosition) {
+            // This is not a 'regular' field, but an embedded object, which is noted as "mainEntityField.embeddedField".
+            // What we need is just the first part of the string (before the point).
+            // If an embedded is found, the position of the dot is 0-based. "ab.cd" -> dot is on pos. 2
+            $field = substr($field, 0, $dotPosition);
         }
 
-        $entityClassName = get_class($entity);
-
-        $reflectionProperty = new \ReflectionProperty($entityClassName, $field);
+        $reflectionProperty = new \ReflectionProperty(get_class($entity), $field);
 
         $propertyAnnotations = $reader->getPropertyAnnotations($reflectionProperty);
         foreach ($propertyAnnotations as $annotation) {
@@ -152,13 +160,13 @@ class FlushListener
         $uow = $em->getUnitOfWork();
 
         $reader = $this->getAnnotationReader();
-        if(empty($reader)) {
+        if (empty($reader)) {
             // Try to get annotation reader from metadata driver, provided by configuration.
 
             /** @var AnnotationDriver $driver */
             $driver = $em->getConfiguration()->getMetadataDriverImpl();
 
-            if(!($driver instanceof AnnotationDriver)) {
+            if (!($driver instanceof AnnotationDriver)) {
                 throw new \RuntimeException(sprintf('Annotation driver not provided (given: "%s"! Use the Doctrine Configuration or pass it via %s::setAnnotationReader!', get_class($driver), __CLASS__));
             }
 
