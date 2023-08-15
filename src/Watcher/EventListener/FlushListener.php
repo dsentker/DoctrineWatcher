@@ -4,6 +4,7 @@ namespace Watcher\EventListener;
 
 use Doctrine\Common\Annotations\CachedReader;
 use Doctrine\Common\Annotations\Reader;
+use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Watcher\Annotations\WatchedField;
@@ -135,7 +136,9 @@ class FlushListener
             $field = substr($field, 0, $dotPosition);
         }
 
-        $reflectionProperty = new \ReflectionProperty(get_class($entity), $field);
+        // Do not use a proxied class
+        $realClass = ClassUtils::getClass($entity);
+        $reflectionProperty = new \ReflectionProperty($realClass, $field);
 
         $propertyAnnotations = $reader->getPropertyAnnotations($reflectionProperty);
         foreach ($propertyAnnotations as $annotation) {
