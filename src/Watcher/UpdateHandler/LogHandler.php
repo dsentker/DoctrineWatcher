@@ -21,11 +21,6 @@ class LogHandler implements UpdateHandler
     private $logLevel;
 
 
-    /**
-     * LogHandler constructor.
-     *
-     * @param LoggerInterface $logger
-     */
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;

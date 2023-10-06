@@ -18,7 +18,7 @@ You can use this library to track changes to Doctrine Entities. Use annotations 
  * @Column(type="string")
  * @WatchedField // <-- Watcher now tracks changes related to this field
  */
-protected $emailAddress;
+protected string $emailAddress;
 ```
 
 ***
@@ -96,7 +96,7 @@ Bugs and feature request are tracked on GitHub.
  
 ## ToDo
 * Use interfaces for everything
-* Easy Symfony4 integration
+* Easy Symfony integration
 * Write tests
 * Optimize performance (group changes?)
  

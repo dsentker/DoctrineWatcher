@@ -3,13 +3,14 @@
 namespace Watcher\Annotations;
 
 use Doctrine\ORM\Mapping\Annotation;
+use Doctrine\ORM\Mapping\MappingAttribute;
 use Watcher\ValueFormatter;
 
 /**
  * @Annotation
  * @Target("PROPERTY")
  */
-final class WatchedField implements Annotation
+final class WatchedField implements MappingAttribute
 {
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Watcher\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Watcher\Entity\LogAccessor;
 use Watcher\Repository\EntityLogRepository;
 
@@ -17,12 +17,7 @@ class LoadListener
     /** @var string */
     private $entityLogClassname;
 
-    /**
-     * LoadListener constructor.
-     *
-     * @param string $entityLogClassname
-     */
-    public function __construct($entityLogClassname)
+    public function __construct(string $entityLogClassname)
     {
         if(!class_exists($entityLogClassname)) {
             throw new \RuntimeException(sprintf('Invalid entity log classname "%s": Must be a full-qualified class name of the EntityLog.', $entityLogClassname));
@@ -36,12 +31,12 @@ class LoadListener
      */
     public function postLoad(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($entity instanceof LogAccessor) {
 
             /** @var EntityLogRepository $logRepo */
-            $logRepo = $args->getEntityManager()->getRepository($this->entityLogClassname);
+            $logRepo = $args->getObjectManager()->getRepository($this->entityLogClassname);
             $entity->setLogs($logRepo->getLogsFromEntity($entity));
         }
 

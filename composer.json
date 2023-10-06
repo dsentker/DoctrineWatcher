@@ -16,8 +16,8 @@
     }
   ],
   "require": {
-    "php": "^5.5 || ^7.0",
-    "doctrine/orm": "2.*",
+    "php": "^7.3 || ^8.0",
+    "doctrine/orm": "2.14.*",
     "doctrine/annotations": "1.*",
     "psr/log": "^1.0",
     "ext-mbstring": "*"

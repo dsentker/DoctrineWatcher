@@ -125,7 +125,7 @@ class FlushListener
      * @return WatchedField|null
      * @throws \ReflectionException
      */
-    private function getWatchedFieldAnnotation(Reader $reader, WatchedEntity $entity, $field)
+    private function getWatchedFieldAnnotation(Reader $reader, WatchedEntity $entity, string $field): ?WatchedField
     {
 
         $dotPosition = strpos($field, '.');
@@ -159,7 +159,7 @@ class FlushListener
     public function onFlush(OnFlushEventArgs $args)
     {
 
-        $em = $args->getEntityManager();
+        $em = $args->getObjectManager();
         $uow = $em->getUnitOfWork();
 
         $reader = $this->getAnnotationReader();
@@ -206,8 +206,6 @@ class FlushListener
 
                     // Associations
                     foreach ($uow->getScheduledCollectionUpdates() as $collectionUpdate) {
-                        /** @var $collectionUpdate \Doctrine\ORM\PersistentCollection */
-
 
                         if ($collectionUpdate->getOwner() === $entity) {
                             // This entity has an association mapping which contains updates.
@@ -231,6 +229,5 @@ class FlushListener
                 }
             }
         }
-
     }
 }
